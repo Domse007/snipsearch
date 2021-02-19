@@ -1,0 +1,51 @@
+#+TITLE: Snipsearch
+#+AUTHOR: Dominik Keller
+#+OPTIONS: toc:t date:nil title:t author:t num:t \:t
+#+EXPORT_FILE_NAME:
+#+LATEX_CLASS: article
+#+LANGUAGE: de
+#+LATEX_HEADER: \usepackage[AUTO]{babel}#+LATEX: \setlength\parindent{0pt}
+
+* What is it
+It is a personal package to manage org templates. I didn't find
+anything that I liked, so I created my own.
+
+* Install it
+I'd recommend to use quelpa-use-package.
+
+#+begin_src emacs-lisp
+  (use-package snipsearch
+    :ensure t
+    :quelpa (snipsearch
+	     :fetcher github
+	     :repo "domse007/snipsearch"))
+#+end_src
+
+* Customize it
+To create a new snippet, you can just modify the list:
+
+#+begin_src emacs-lisp
+  (use-package snipsearch
+    :ensure t
+    :quelpa (snipsearch
+	     :fetcher github
+	     :repo "domse007/snipsearch")
+    :config ((snipsearch-list '(("hello" "Hello World!" 0)
+			       ("equation" "\\[\\]" -2)))
+	     (snipsearch-author "Your Name"))
+    :bind ("C-c m" . snipsearch))
+#+end_src
+
+The first argument is the string that you type, the second one is the
+string, that is inserted. The integer at the end moves the point
+around. This is useful, if you have to insert more inside the inserted
+string.
+
+If you define a new snippet, you can insert =%1$s= into the string that
+is inserted, and then the package will insert the =buffer-name=, but it
+will delete the file extension and make the first char uppercase. With
+=%2$s=, the package will insert the string defined in the variable
+=snipsearch-author=.
+
+* Licence
+GPL v3
