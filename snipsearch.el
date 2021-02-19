@@ -38,7 +38,6 @@
 
 (defun snipsearch-insert (snipsearch--insert-start-list)
   (let ((snipsearch--insert-list snipsearch--insert-start-list)
-	(snipsearch--insert-filename (substring (buffer-name) -4))
 	(snipsearch--insert-title (concat (upcase (substring (buffer-name) 0 1))
 					  (substring (buffer-name) 1 -4))))
     (progn (insert (format (nth 1 snipsearch--insert-list)
