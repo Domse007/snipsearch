@@ -26,6 +26,11 @@
 
 ;;; Code:
 
+(defgroup snipsearch nil
+  "Provide a simple interface to search for snippets."
+  :prefix "snipsearch-"
+  :group 'snipsearch)
+
 (defcustom snipsearch-author ""
   "Set the default author of org files."
   :type 'string
@@ -35,6 +40,16 @@
   "List with all macros"
   :type 'list
   :group 'snipsearch)
+
+(defcustom snipsearch-comp-interface 'default
+  "Symbol that indicates prefered completion frontend"
+  :type 'symbol
+  :group 'snipsearch)
+
+(define-minor-mode snipsearch-mode
+  :global nil
+  :keymap '(([?\C-c ?\m] . snipsearch))
+  :lighter " snipsearch")
 
 (defun snipsearch-insert (snipsearch--insert-start-list)
   (let ((snipsearch--insert-list snipsearch--insert-start-list)
@@ -61,10 +76,20 @@
 	(snipsearch-insert snipsearch--interface-loop)))))
 
 (defun snipsearch ()
+  "Provide different options for interfacing with the user."
   (interactive)
-  (if (string-equal major-mode "org-mode")
-      (snipsearch-interface)
-    (message "Currently not in org-mode.")))
+  (let ((test 1))
+    (progn
+      (cond
+       ((equal snipsearch-interface 'default)
+	(snipsearch-interface))
+       ((equal snipsearch-interface 'ivy)
+	(ivy-read "Select snippet: "
+		  snipsearch-list
+		  :preselect (ivy-thing-at-point)
+		  :require-match t
+		  :action (lambda (result)
+			    (snipsearch-insert result))))))))
 
 (provide 'snipsearch)
 ;;; snipsearch.el ends here
