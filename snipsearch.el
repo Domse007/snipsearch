@@ -47,7 +47,6 @@
   :group 'snipsearch)
 
 (define-minor-mode snipsearch-mode
-  :global nil
   :keymap '(([?\C-c ?\m] . snipsearch))
   :lighter " snipsearch")
 
