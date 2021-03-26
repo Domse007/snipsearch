@@ -81,9 +81,9 @@
   (let ((test 1))
     (progn
       (cond
-       ((equal snipsearch-interface 'default)
+       ((equal snipsearch-comp-interface 'default)
 	(snipsearch-interface))
-       ((equal snipsearch-interface 'ivy)
+       ((equal snipsearch-comp-interface 'ivy)
 	(ivy-read "Select snippet: "
 		  snipsearch-list
 		  :preselect (ivy-thing-at-point)
