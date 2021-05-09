@@ -32,7 +32,8 @@ To create a new snippet, you can just modify the list:
 	     :repo "domse007/snipsearch")
     :config ((snipsearch-list '(("hello" "Hello World!" 0)
 			       ("equation" "\\[\\]" -2)))
-	     (snipsearch-author "Your Name"))
+	     (snipsearch-author "Your Name")
+	     (snipsearch-comp-interface 'default))
     :bind ("C-c m" . snipsearch))
 #+end_src
 
@@ -40,6 +41,10 @@ The first argument is the string that you type, the second one is the
 string, that is inserted. The integer at the end moves the point
 around. This is useful, if you have to insert more inside the inserted
 string.
+
+The variable =snipsearch-comp-interface= is the symbol that defines the
+preferred completion frontend. If you use the default emacs interface,
+use ='default=. If you use helm or ivy, use ='helm= of ='ivy= respectively.
 
 If you define a new snippet, you can insert =%1$s= into the string that
 is inserted, and then the package will insert the =buffer-name=, but it
