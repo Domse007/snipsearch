@@ -44,6 +44,7 @@
 (defcustom snipsearch-comp-interface 'default
   "Symbol that indicates prefered completion frontend"
   :type 'symbol
+  :options '(default helm ivy)
   :group 'snipsearch)
 
 (define-minor-mode snipsearch-mode
@@ -89,7 +90,12 @@
 		  :preselect (ivy-thing-at-point)
 		  :require-match t
 		  :action (lambda (result)
-			    (snipsearch-insert result))))))))
+			    (snipsearch-insert result))))
+       ((equal snipseach-comp-interface 'helm)
+	(helm :sources (helm-build-sync-source "snipsearch"
+			 :candidates snipsearch-list
+			 :fuzzy-match t)
+	      :buffer "*snipsearch*"))))))
 
 (provide 'snipsearch)
 ;;; snipsearch.el ends here
