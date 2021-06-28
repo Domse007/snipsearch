@@ -52,6 +52,12 @@
   :keymap '(([?\C-c ?\m] . snipsearch))
   :lighter " snipsearch")
 
+(when (equal snipsearch-comp-interface 'helm)
+  (require 'helm))
+
+(when (equal snipsearch-comp-interface 'ivy)
+  (require 'ivy))
+
 (defun snipsearch-insert (snipsearch--insert-start-list offset)
   "Function that inserts the actual string. It takes the 2 parameters.
 - the first one is the list
@@ -61,9 +67,9 @@
 	(snipsearch--insert-title (concat (upcase (substring (buffer-name) 0 1))
 					  (substring (buffer-name) 1 -4))))
     (progn (insert (format (nth offset snipsearch--insert-list)
-		   snipsearch--insert-title
-		   snipsearch-author
-		   ))
+			   snipsearch--insert-title
+			   snipsearch-author
+			   ))
 	   (forward-char (nth (+ offset 1) snipsearch--insert-list)))))
 
 (defun snipsearch--get-names ()
