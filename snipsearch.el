@@ -52,11 +52,12 @@
   :keymap '(([?\C-c ?\m] . snipsearch))
   :lighter " snipsearch")
 
-(when (equal snipsearch-comp-interface 'helm)
-  (require 'helm))
-
-(when (equal snipsearch-comp-interface 'ivy)
-  (require 'ivy))
+(defun snipsearch-init ()
+  "Init the package."
+  (when (equal snipsearch-comp-interface 'helm)
+    (require 'helm))
+  (when (equal snipsearch-comp-interface 'ivy)
+    (require 'ivy)))
 
 (defun snipsearch-insert (snipsearch--insert-start-list offset)
   "Function that inserts the actual string. It takes the 2 parameters.
